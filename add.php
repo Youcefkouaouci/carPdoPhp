@@ -1,10 +1,6 @@
 <?php
 require_once("header.php");
-// Création d'un formulaire d'ajout
-// validation des donnée POST avant formulaire 
-// Ajouter en base données
-// gestion des erreurs
-// model, brand, horsePower, image
+require_once("connectDB.php");
 ?>
 <?php
 $errors = [];
@@ -15,23 +11,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($_POST['brand'])) {
-        $errors['brand'] = 'Le modèle ne peut pas être vide.';
+        $errors['brand'] = 'La marque ne peut pas être vide.';
     }
 
-    if (empty($_POST['horsePower'])) {
-        $errors['horsePower'] = 'Le horsePower ne peut pas être vide.';
+    if (empty($_POST['horsePower']) || !is_numeric($_POST['horsePower'])) {
+        $errors['horsePower'] = 'La puissance doit être un nombre valide.';
     }
 
     if (empty($_POST['image'])) {
-        $errors['image'] = 'Le modèle ne peut pas être vide.';
+        $errors['image'] = 'L\'image ne peut pas être vide.';
     }
 
     if (empty($errors)) {
         require_once("connectDB.php");
         $pdo = connectDB();
+        $requete = $pdo->prepare("INSERT INTO car(model, brand, horsePower, image) VALUES(:model, :brand, :horsePower, :image);");
+        $requete->execute([
+            'model' => $_POST['model'],
+            'brand' => $_POST['brand'],
+            'horsePower' => $_POST['horsePower'],
+            'image' => $_POST['image'],
+        ]);
     }
+    header("Location: index.php");
 }
-
 ?>
 
 <form method="POST" action="add.php">
@@ -60,17 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
     }
     ?>
-    <input type="file" name="image" required />
+    <input type="text" name="image" required />
     <?php if (isset($errors['image'])) {
     ?>
         <p><?= $errors['image'] ?></p>
     <?php
     }
     ?>
-
-    <?php
-    // }
-    ?>
     <input type="Submit" value="valider">
 </form>
-<?php

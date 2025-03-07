@@ -17,6 +17,8 @@ $cars = $requete->fetchAll();
         <h3>Modèle: <?= $car['model'] ?></h3>
         <p>Marque: <?= $car['brand'] ?></p>
         <p>Puissance: <?= $car['horsePower'] ?></p>
+        <a href="update.php?id=<?= $car["id"] ?>">Modifier</a>
+        <a href="delete.php?id=<?= $car["id"] ?>">Supprimer</a>
         <?php if (!empty($car['image'])) {
         ?>
             <img src="images/<?= $car['image'] ?>" alt="<?= $car['model'] ?>">
