@@ -8,3 +8,10 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <a href="index.php">Accueil</a>
+            <a href="login.php">Login</a>
+            <a href="admin.php">Admin</a>
+        </nav>
+    </header>
