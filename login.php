@@ -7,6 +7,7 @@ var_dump($pass);
 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     if (empty($_POST['username'])) {
         $errors['username'] = 'Le username ne peut pas être vide.';
     }
@@ -18,12 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         require_once("connectDB.php");
         $pdo = connectDB();
-        // $requete = $pdo->prepare("INSERT INTO user(username, ) VALUES(:username, :password);");
+        $requete = $pdo->prepare("SELECT * FROM user WHERE username = :username");
         $requete->execute([
             'username' => $_POST['username'],
-            'password' => $_POST['password'],
-
         ]);
+        $user = $requete->fetch();
+
+        if ($user != false) {
+            if (password_verify($_POST["password"], $user["password"])) {
+                session_start();
+                $_SESSION["username"] = $user["username"];
+                header("Location: admin.php");
+            }
+        }
+    } else {
+        echo ("Nom d'utilisateur ou mot de passe incorrect.");
     }
 }
 
