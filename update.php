@@ -1,10 +1,14 @@
 <?php
-
 require_once("header.php");
 require_once("connectDB.php");
-$_GET['id'];
-// isset verfier si l'id existe 
 
+$_GET['id'];
+
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+}
+
+// isset verfier si l'id existe 
 if (isset($_GET['id']) === false) {
     header("Location: index.php");
 }

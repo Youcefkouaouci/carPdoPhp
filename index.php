@@ -13,12 +13,12 @@ $cars = $requete->fetchAll();
 <h2>Liste des Voitures</h2>
 <?php foreach ($cars as $car) {
 ?>
-    <div>
-        <h3>Modèle: <?= $car['model'] ?></h3>
-        <p>Marque: <?= $car['brand'] ?></p>
-        <p>Puissance: <?= $car['horsePower'] ?></p>
-        <a href="update.php?id=<?= $car["id"] ?>">Modifier</a>
-        <a href="delete.php?id=<?= $car["id"] ?>">Supprimer</a>
+    <div class="d-flex flex-wrap justify-content-evenly">
+        <h3 class="col-4">Modèle: <?= $car['model'] ?></h3>
+        <p class="col-4">Marque: <?= $car['brand'] ?></p>
+        <p class="col-4">Puissance: <?= $car['horsePower'] ?></p>
+        <a class="btn btn-primary" href="update.php?id=<?= $car["id"] ?>">Modifier</a>
+        <a class="btn btn-danger" href="delete.php?id=<?= $car["id"] ?>">Supprimer</a>
         <?php if (!empty($car['image'])) {
         ?>
             <img src="images/<?= $car['image'] ?>" alt="<?= $car['model'] ?>">
@@ -28,4 +28,4 @@ $cars = $requete->fetchAll();
     </div>
 <?php } ?>
 
-<button><a href="add.php">Ajouter une voiture</a></button>
+<button class="btn btn-success"><a href="add.php">Ajouter une voiture</a></button>

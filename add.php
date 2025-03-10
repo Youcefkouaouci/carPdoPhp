@@ -1,8 +1,11 @@
 <?php
 require_once("header.php");
 require_once("connectDB.php");
-?>
-<?php
+
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+}
+
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

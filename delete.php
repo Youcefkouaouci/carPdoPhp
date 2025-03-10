@@ -4,6 +4,10 @@ require_once("connectDB.php");
 
 var_dump($_GET['id']);
 
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+}
+
 // isset verfier si l'id existe 
 if (isset($_GET['id']) === false) {
     header("Location: index.php");
