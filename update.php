@@ -1,15 +1,12 @@
 <?php
-//  Vérification de la présence de l’ID en paramètre url GET
-//  2) Récupération de la voiture en BDD correspondant à l’ID reçu
-//  3) Création du formulaire d’édition, les champs doivent être prérempli avec les données de la voiture récupérée.
-//  4) Ajout du traitement du formulaire, semblable à celui de add.php
 
 require_once("header.php");
 require_once("connectDB.php");
 $_GET['id'];
 // isset verfier si l'id existe 
 
-if (isset($_GET['id']) === true) {
+if (isset($_GET['id']) === false) {
+    header("Location: index.php");
 }
 // verfier si une voiture avec l'id existe en bdd
 $pdo = connectDB();
@@ -19,6 +16,11 @@ $requete->execute([
     'id' => $_GET["id"]
 ]);
 $car = $requete->fetch();
+
+if ($car === false) {
+    header("Location: index.php");
+}
+
 var_dump($car);
 
 ?>

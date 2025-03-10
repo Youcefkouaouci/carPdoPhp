@@ -1,21 +1,25 @@
 <?php
-//  Vérification de la présence de l’ID en paramètre url GET
-//  2) Récupération de la voiture en BDD correspondant à l’ID reçu
-//  3) Création du formulaire d’édition, les champs doivent être prérempli avec les données de la voiture récupérée.
-//  4) Ajout du traitement du formulaire, semblable à celui de add.php
-
 require_once("header.php");
 require_once("connectDB.php");
-$_GET['id'];
+
+var_dump($_GET['id']);
+
 // isset verfier si l'id existe 
+if (isset($_GET['id']) === false) {
+    header("Location: index.php");
+}
+
 // verfier si une voiture avec l'id existe en bdd
 $pdo = connectDB();
 $requete = $pdo->prepare("SELECT * FROM car WHERE id = :id;");
 $requete->execute([
-
     'id' => $_GET["id"]
 ]);
 $car = $requete->fetch();
+
+if ($car === false) {
+    header("Location: index.php");
+}
 var_dump($car);
 
 ?>
@@ -23,61 +27,19 @@ var_dump($car);
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if (empty($_POST['model'])) {
-        $errors['model'] = 'Le modèle ne peut pas être vide.';
-    }
-
-    if (empty($_POST['brand'])) {
-        $errors['brand'] = 'La marque ne peut pas être vide.';
-    }
-
-    if (empty($_POST['horsePower']) || !is_numeric($_POST['horsePower'])) {
-        $errors['horsePower'] = 'La puissance doit être un nombre valide.';
-    }
-
-    if (empty($_POST['image'])) {
-        $errors['image'] = 'L\'image ne peut pas être vide.';
-    }
-
-    if (empty($errors)) {
-        require_once("connectDB.php");
-        $pdo = connectDB();
-        $requete = $pdo->prepare("DELETE Car SET model = :model, brand = :brand, horsePower = :horsePower, image = :image WHERE id = :id;");
-        $requete->execute([
-
-            'model' => $_POST['model'],
-            'brand' => $_POST['brand'],
-            'horsePower' => $_POST['horsePower'],
-            'image' => $_POST['image'],
-            'id' => $car["id"]
-        ]);
-    }
+    $pdo = connectDB();
+    $requete = $pdo->prepare("DELETE FROM Car WHERE id = :id;");
+    $requete->execute([
+        'id' => $_GET["id"]
+    ]);
+    var_dump("test");
     header("Location: index.php");
 }
 ?>
 
+<form method="POST" action="delete.php?id=<?= $_GET["id"] ?>">
 
-
-<form method="GET" action="update.php">
-    <label for="car">c</label>
-    <?php
-
-    ?>
-    <input type="text" name="model" value="<?= $car['model'] ?>" required />
-    <?php if (isset($errors['model'])) {
-    ?>
-        <p><?= $errors['model'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="text" name="brand" value="<?= $car['brand'] ?>" required />
-    <?php if (isset($errors['brand'])) {
-    ?>
-        <p><?= $errors['brand'] ?></p>
-    <?php
-    }
-    ?>
-
-    <input type="Submit" value="Delete">
-    <button><a href="add.php">Annuler</a></button>
+    <label for="car">Confirmez la suppresion de <?= $car['model'], $car['brand']  ?> </label>
+    <Button>Supprimer</Button>
+    <button formaction="index.php">Annuler</button>
 </form>
