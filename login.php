@@ -3,7 +3,7 @@ require_once("header.php");
 require_once("connectDB.php");
 
 $pass = password_hash("admin", PASSWORD_DEFAULT);
-var_dump($pass);
+// var_dump($pass);
 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,12 +38,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-<form method="POST" action="login.php">
-    <label>username</label>
-    <input required type="text" name="username">
 
-    <label>Password</label>
-    <input required type="password" name="password">
-
-    <button>Se Connecter</button>
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Connexion</h2>
+                    <form method="POST" action="login.php">
+                        <div>
+                            <label class="form-label">Username</label>
+                            <input type="text"
+                                name="username"
+                                class="form-control"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password"
+                                name="password"
+                                class="form-control"
+                                required />
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary w-100">Se Connecter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

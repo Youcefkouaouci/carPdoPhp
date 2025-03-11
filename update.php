@@ -3,7 +3,6 @@ require_once("header.php");
 require_once("connectDB.php");
 
 $_GET['id'];
-
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
 }
@@ -25,7 +24,7 @@ if ($car === false) {
     header("Location: index.php");
 }
 
-var_dump($car);
+// var_dump($car);
 
 ?>
 <?php
@@ -66,39 +65,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
+<div class="container mt-5">
+    <h2 class="mb-4">Modifier la voiture</h2>
 
-<form method="" action="update.php">
-    <label for="car">Modifier votre Car</label>
-    <?php
+    <form method="" action="update.php">
 
-    ?>
-    <input type="text" name="model" value="<?= $car['model'] ?>" required />
-    <?php if (isset($errors['model'])) {
-    ?>
-        <p><?= $errors['model'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="text" name="brand" value="<?= $car['brand'] ?>" required />
-    <?php if (isset($errors['brand'])) {
-    ?>
-        <p><?= $errors['brand'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="number" name="horsePower" value="<?= $car['horsePower'] ?>" required />
-    <?php if (isset($errors['horsePower'])) {
-    ?>
-        <p><?= $errors['horsePower'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="text" name="image" value="<?= $car['image'] ?>" required />
-    <?php if (isset($errors['image'])) {
-    ?>
-        <p><?= $errors['image'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="Submit" value="valider">
-</form>
+        <div class="mb-3">
+            <label class="form-label">Modèle :</label>
+            <input type="text" name="model" class="form-control" value="<?= $car['model'] ?>" required />
+            <?php if (isset($errors['model'])) {
+            ?>
+                <p class="text-danger"><?= $errors['model'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+        <div class="mb-3">
+            <input type="text" name="brand" class="form-control" value="<?= $car['brand'] ?>" required />
+            <?php if (isset($errors['brand'])) {
+            ?>
+                <p class="text-danger"><?= $errors['brand'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+        <div class="mb-3">
+            <input type="number" name="horsePower" class="form-control" value="<?= $car['horsePower'] ?>" required />
+            <?php if (isset($errors['horsePower'])) {
+            ?>
+                <p class="text-danger"><?= $errors['horsePower'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+        <div class="mb-3">
+            <input type="text" name="image" class="form-control" value="<?= $car['image'] ?>" required />
+            <?php if (isset($errors['image'])) {
+            ?>
+                <p class="text-danger"><?= $errors['image'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="index.php" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>

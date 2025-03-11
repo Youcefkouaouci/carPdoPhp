@@ -3,7 +3,7 @@ require_once("header.php");
 require_once("connectDB.php");
 
 if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
+    // header("Location: index.php");
 }
 
 $errors = [];
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'image' => $_POST['image'],
         ]);
     }
-    header("Location: index.php");
+    // header("Location: index.php");
 }
 ?>
 

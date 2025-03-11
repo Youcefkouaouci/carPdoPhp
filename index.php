@@ -1,8 +1,8 @@
 <?php
 require_once("header.php");
-
-// Récupération des données
 require_once("connectDB.php");
+
+// Récupération des données 
 $pdo = connectDB();
 $requete = $pdo->prepare("SELECT * FROM car;");
 $requete->execute();
@@ -10,22 +10,32 @@ $cars = $requete->fetchAll();
 
 // affichage des données
 ?>
-<h2>Liste des Voitures</h2>
-<?php foreach ($cars as $car) {
-?>
-    <div class="d-flex flex-wrap justify-content-evenly">
-        <h3 class="col-4">Modèle: <?= $car['model'] ?></h3>
-        <p class="col-4">Marque: <?= $car['brand'] ?></p>
-        <p class="col-4">Puissance: <?= $car['horsePower'] ?></p>
-        <a class="btn btn-primary" href="update.php?id=<?= $car["id"] ?>">Modifier</a>
-        <a class="btn btn-danger" href="delete.php?id=<?= $car["id"] ?>">Supprimer</a>
-        <?php if (!empty($car['image'])) {
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Liste des Voitures</h2>
+    <div class="row">
+        <?php foreach ($cars as $car) {
         ?>
-            <img src="images/<?= $car['image'] ?>" alt="<?= $car['model'] ?>">
-        <?php } else { ?>
-            <p>Aucune image disponible</p>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm">
+                    <h3 class="card-title text-center">Modèle: <?= $car['model'] ?></h3>
+                    <p class="card-text">Marque: <?= $car['brand'] ?></p>
+                    <p class="card-text">Puissance: <?= $car['horsePower'] ?></p>
+                    <!-- <a class="btn btn-primary" href="update.php?id=<?= $car["id"] ?>">Modifier</a> -->
+                    <!-- <a class="btn btn-danger" href="delete.php?id=<?= $car["id"] ?>">Supprimer</a> -->
+                    <?php if (!empty($car['image'])) {
+                    ?>
+                        <img src="images/<?= $car['image'] ?>" class="card-img-top img-fluid" alt="<?= $car['model'] ?>" style="height: 200px; object-fit: cover;">
+                    <?php } else { ?>
+                        <p class="text-center p-3 bg-light">Aucune image disponible</p>
+                    <?php } ?>
+                </div>
+            </div>
         <?php } ?>
     </div>
-<?php } ?>
-
-<button class="btn btn-success"><a href="add.php">Ajouter une voiture</a></button>
+    <div class="text-center mt-4">
+        <!-- <button class="btn btn-success">
+            <a href="add.php" class="text-white text-decoration-none d-block">Ajouter une voiture</a>
+        </button> -->
+    </div>
+</div>

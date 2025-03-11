@@ -12,9 +12,33 @@
 
 <body>
     <header>
-        <nav>
-            <a href="index.php">Accueil</a>
-            <a href="login.php">Login</a>
-            <a href="logout.php">Logout</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.php"> Accueil | Car Garage </a>
+            <?php
+            // si je suis connecter 
+            session_start();
+            if (!isset($_SESSION["username"])) {
+            ?>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Login</a>
+                        </li>
+                    </ul>
+                <?php
+            } else {
+                ?>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            <?php
+            }
+            ?>
         </nav>
     </header>
