@@ -40,38 +40,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<form method="POST" action="add.php">
-    <label for="car">Ajouter votre Car</label>
-    <?php
+<div class="container mt-5">
+    <h2 class="mb-4">Ajouter une voiture</h2>
 
-    ?>
-    <input type="text" name="model" required />
-    <?php if (isset($errors['model'])) {
-    ?>
-        <p><?= $errors['model'] ?></p>
+    <form method="POST" action="add.php" class="border p-4 rounded shadow bg-light">
+        <div class="mb-3">
+            <label class="form-label">Modèle :</label>
+            <input type="text" name="model" class="form-control" required />
+            <?php if (isset($errors['model'])) {
+            ?>
+                <p class="text-danger"><?= $errors['model'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Marque :</label>
+            <input type="text" name="brand" class="form-control" required />
+            <?php if (isset($errors['brand'])) {
+            ?>
+                <p class="text-danger"><?= $errors['brand'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Puissance :</label>
+            <input type="number" name="horsePower" class="form-control" required />
+            <?php if (isset($errors['horsePower'])) {
+            ?>
+                <p class="text-danger"><?= $errors['horsePower'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Image :</label>
+            <input type="text" name="image" class="form-control" required />
+            <?php if (isset($errors['image'])) {
+            ?>
+                <p class="text-danger"><?= $errors['image'] ?></p>
+            <?php
+            }
+            ?>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+        <a href="index.php" class="btn btn-secondary">Annuler</a>
+
+    </form>
+
     <?php
-    }
+    require_once("footer.php");
     ?>
-    <input type="text" name="brand" required />
-    <?php if (isset($errors['brand'])) {
-    ?>
-        <p><?= $errors['brand'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="number" name="horsePower" required />
-    <?php if (isset($errors['horsePower'])) {
-    ?>
-        <p><?= $errors['horsePower'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="text" name="image" required />
-    <?php if (isset($errors['image'])) {
-    ?>
-        <p><?= $errors['image'] ?></p>
-    <?php
-    }
-    ?>
-    <input type="Submit" value="valider">
-</form>

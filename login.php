@@ -70,3 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
+<?php
+require_once("footer.php");
+?>

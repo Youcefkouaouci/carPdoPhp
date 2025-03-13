@@ -1,7 +1,6 @@
 <?php
 require_once("header.php");
 
-$_GET['id'];
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
 }
@@ -24,6 +23,7 @@ $car = $requete->fetch();
 
 if ($car === false) {
     header("Location: index.php");
+    exit();
 }
 
 // var_dump($car);
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container mt-5">
     <h2 class="mb-4">Modifier la voiture</h2>
 
-    <form method="" action="update.php?id<?= $car["id"] ?>">
+    <form method="POST" action="update.php?id=<?= $car["id"] ?>">
 
         <div class="mb-3">
             <label class="form-label">Modèle :</label>
