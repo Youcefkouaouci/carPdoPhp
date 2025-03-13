@@ -1,6 +1,5 @@
 <?php
 require_once("header.php");
-require_once("header.php");
 
 // session_start();
 if (!isset($_SESSION["username"])) {
@@ -42,3 +41,7 @@ $cars = $requete->fetchAll();
         <a class="btn btn-success" href="add.php">Ajouter une voiture</a>
     </div>
 </div>
+
+<?php
+require_once("footer.php");
+?>

@@ -1,6 +1,5 @@
 <?php
 require_once("header.php");
-require_once("connectDB.php");
 
 $_GET['id'];
 if (!isset($_SESSION["username"])) {
@@ -10,8 +9,11 @@ if (!isset($_SESSION["username"])) {
 // isset verfier si l'id existe 
 if (isset($_GET['id']) === false) {
     header("Location: index.php");
+    exit(404);
 }
+
 // verfier si une voiture avec l'id existe en bdd
+require_once("connectDB.php");
 $pdo = connectDB();
 $requete = $pdo->prepare("SELECT * FROM car WHERE id = :id;");
 $requete->execute([
@@ -30,7 +32,6 @@ if ($car === false) {
 <?php
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     if (empty($_POST['model'])) {
         $errors['model'] = 'Le modèle ne peut pas être vide.';
     }
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
     }
     header("Location: index.php");
+    exit();
 }
 ?>
 
@@ -68,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container mt-5">
     <h2 class="mb-4">Modifier la voiture</h2>
 
-    <form method="" action="update.php">
+    <form method="" action="update.php?id<?= $car["id"] ?>">
 
         <div class="mb-3">
             <label class="form-label">Modèle :</label>
@@ -111,3 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="index.php" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
+
+<?php
+require_once("footer.php");
+?>

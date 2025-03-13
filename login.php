@@ -2,9 +2,10 @@
 require_once("header.php");
 require_once("connectDB.php");
 
+// la syntaxe pour hasher le password dans la BDD
 $pass = password_hash("admin", PASSWORD_DEFAULT);
 // var_dump($pass);
-
+// récuprer les 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

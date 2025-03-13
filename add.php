@@ -3,7 +3,7 @@ require_once("header.php");
 require_once("connectDB.php");
 
 if (!isset($_SESSION["username"])) {
-    // header("Location: index.php");
+    header("Location: index.php");
 }
 
 $errors = [];
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         require_once("connectDB.php");
         $pdo = connectDB();
-        $requete = $pdo->prepare("INSERT INTO car(model, brand, horsePower, image) VALUES(:model, :brand, :horsePower, :image);");
+        $requete = $pdo->prepare("INSERT INTO car(model,  brand, horsePower, image) VALUES(:model, :brand, :horsePower, :image);");
         $requete->execute([
             'model' => $_POST['model'],
             'brand' => $_POST['brand'],
