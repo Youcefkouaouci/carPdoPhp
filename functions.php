@@ -2,12 +2,12 @@
 require_once("header.php");
 require_once("connectDB.php");
 
-$pdo = connectDB();
+// $pdo = connectDB(); 
 function selectAllCars($pdo)
 {
     $requete = $pdo->prepare("SELECT * FROM car");
     $requete->execute();
-    return $requete->fetchAll();
+    return $requete->fetchAll(); 
 }
 // var_dump(selectAllCars($pdo));
 
